@@ -12,7 +12,7 @@ import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.s
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.utils.Mapper;
 
 @Service
-public class AccountBalanceServiceImpl implements AccountBalanceService{
+public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     @Autowired
     private AccountTypeRepository accountTypeRepository;

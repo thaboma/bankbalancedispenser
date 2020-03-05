@@ -3,10 +3,13 @@ package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "CURRENCY")
+@NamedQuery(name = "CurrencyEntity.findRateByCurrencyCode", query = "SELECT c FROM CurrencyEntity c WHERE c.currencyCode = :currencyCode")
+
 public class CurrencyEntity {
 
     @Id
@@ -18,4 +21,30 @@ public class CurrencyEntity {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+	public String getCurrencyCode() {
+		return currencyCode;
+	}
+
+	public void setCurrencyCode(String currencyCode) {
+		this.currencyCode = currencyCode;
+	}
+
+	public int getDecimalPlaces() {
+		return decimalPlaces;
+	}
+
+	public void setDecimalPlaces(int decimalPlaces) {
+		this.decimalPlaces = decimalPlaces;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+    
+    
 }

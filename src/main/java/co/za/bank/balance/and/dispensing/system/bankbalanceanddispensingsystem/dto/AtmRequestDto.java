@@ -21,10 +21,52 @@ public class AtmRequestDto extends Dto {
     private String accountNo;
 
 	@JsonProperty("requiredAmt")
-    private String requiredAmt;
+    private Double requiredAmt;
 	
 	
 	@JsonProperty("instant")
-    private Instant instant;	
+    private Instant instant;
 
+
+	public String getClientId() {
+		return clientId;
+	}
+
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+
+
+	public Double getRequiredAmt() {
+		return requiredAmt;
+	}
+
+
+	public void setRequiredAmt(Double requiredAmt) {
+		this.requiredAmt = requiredAmt;
+	}
+
+
+	public Instant getInstant() {
+		return instant;
+	}
+
+
+	public void setInstant(Instant instant) {
+		this.instant = instant;
+	}	
+
+	
+	
 }

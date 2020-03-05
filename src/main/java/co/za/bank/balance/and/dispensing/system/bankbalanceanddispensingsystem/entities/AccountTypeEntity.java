@@ -30,6 +30,30 @@ public class AccountTypeEntity implements Serializable {
     @Column(name = "TRANSACTIONAL")
     private byte transactional;
 
+	public String getAccountTypeCode() {
+		return accountTypeCode;
+	}
+
+	public void setAccountTypeCode(String accountTypeCode) {
+		this.accountTypeCode = accountTypeCode;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public byte getTransactional() {
+		return transactional;
+	}
+
+	public void setTransactional(byte transactional) {
+		this.transactional = transactional;
+	}
+
 
 
 }

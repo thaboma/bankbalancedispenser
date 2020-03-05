@@ -10,22 +10,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.services.AccountBalanceService;
+import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto.ClientCurAccBalResponceDto;
+import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto.ClientTransBalResponceDto;
+import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.exceptions.NoAccountFoundException;
+import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.services.ViewAccountService;
 
 @RestController
 @RequestMapping("api/v1/view")
 public class ViewAccountController {
 
     @Autowired
-    private AccountBalanceService accountBalanceService;
+    private ViewAccountService viewAccountService;
 
     @GetMapping("/get_transactional_account_balances")
-    public List<?> getTransactionalAccountBalances(@PathVariable String id, Instant instant  ){       
-    	return accountBalanceService.getTransactionalAccountBalances();    	
+    public List<ClientTransBalResponceDto> getTransactionalAccountBalances(@PathVariable String id, @PathVariable Instant instant) throws NoAccountFoundException{       
+    	return viewAccountService.getTransactionalAccountBalances(id ,instant);    	
     }
     
     @GetMapping("/get_currency_account_balances")
-    public List<?> getCurrencyAccountBalances(@PathVariable String id, Instant instant  ){       
-    	return accountBalanceService.getCurrencyAccountBalances();    	
+    public List<ClientCurAccBalResponceDto> getCurrencyAccountBalances(@PathVariable String id, Instant instant) throws NoAccountFoundException{       
+    	return viewAccountService.getCurrencyAccountBalances(id,instant);    	
     }
 }

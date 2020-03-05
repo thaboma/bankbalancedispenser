@@ -19,7 +19,7 @@ public class AccountTypeController {
 
     @Autowired
     private AccountServiceImpl accountService;
-
+    
     @GetMapping("/get_all_account_type")
     public List<AccountTypeDto> getAllCountType(){
         return accountService.getAllAccountType();

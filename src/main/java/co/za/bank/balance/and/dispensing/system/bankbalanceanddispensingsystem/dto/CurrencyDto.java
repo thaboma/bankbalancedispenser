@@ -1,21 +1,25 @@
 package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-@Table(name = "CURRENCY")
-public class CurrencyDto {
+import lombok.Getter;
+import lombok.Setter;
 
-    @Id
-    @Column(name = "CURRENCY_CODE")
+@Setter
+@Getter
+public class CurrencyDto extends Dto {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6359444820588550341L;
+
+	@JsonProperty("currencyCode")
     private String currencyCode;
 
-    @Column(name = "DECIMAL_PLACES")
+	@JsonProperty("decimalPlaces")
     private int decimalPlaces;
 
-    @Column(name = "DESCRIPTION")
+	@JsonProperty("description")
     private String description;
 }

@@ -41,5 +41,54 @@ public class ClientEntity {
     @JoinColumn(name="CLIENT_SUB_TYPE_CODE")
     ClientSubTypeEntity clientSubTypeEntity;
     
+    
+	public int getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public ClientSubTypeEntity getClientSubTypeEntity() {
+		return clientSubTypeEntity;
+	}
+
+	public void setClientSubTypeEntity(ClientSubTypeEntity clientSubTypeEntity) {
+		this.clientSubTypeEntity = clientSubTypeEntity;
+	}
+    
 
 }
