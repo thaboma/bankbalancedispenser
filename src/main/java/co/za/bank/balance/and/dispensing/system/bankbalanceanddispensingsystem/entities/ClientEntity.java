@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +37,7 @@ public class ClientEntity {
     private String surname;
 
     @Column(name = "DOB")
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
     @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)

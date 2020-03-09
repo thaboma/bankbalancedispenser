@@ -2,8 +2,8 @@ package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +17,8 @@ public class CashWithdrawalController {
     @Autowired
     private CashWithdrawalServiceImpl cashWithdrawalService;
 
-    @GetMapping("/get_cash")
-    public void getCash(@PathVariable AtmRequestDto atmRequestDto){       
+    @PostMapping("/get_cash/{atmRequestDto}")
+    public void getCash(@RequestBody AtmRequestDto atmRequestDto){       
     	 cashWithdrawalService.getCash(atmRequestDto);    	
     }
     

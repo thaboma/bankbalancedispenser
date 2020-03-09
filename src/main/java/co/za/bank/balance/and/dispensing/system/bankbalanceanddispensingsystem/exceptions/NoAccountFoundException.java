@@ -1,7 +1,12 @@
 package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.exceptions;
 
 public class NoAccountFoundException extends  Exception { 
-    public NoAccountFoundException(String errorMessage) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1697272839136620104L;
+
+	public NoAccountFoundException(String errorMessage) {
         super(errorMessage);
     }
 

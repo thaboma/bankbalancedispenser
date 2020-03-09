@@ -1,5 +1,7 @@
 package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -22,13 +24,13 @@ public class ClientCurAccBalResponceDto extends Dto {
 	
 	
 	@JsonProperty("convertionRatio")
-    private Double convertionRatio;
+    private BigDecimal convertionRatio;
 	 
 	@JsonProperty("currencyBalance")
-    private Double currencyBalance;
+    private BigDecimal currencyBalance;
 	
 	@JsonProperty("zarAmount")
-    private Double zarAmount;
+    private BigDecimal zarAmount;
 	
 	@JsonProperty("errorMessage")
     private Double errorMessage;
@@ -50,27 +52,27 @@ public class ClientCurAccBalResponceDto extends Dto {
 		this.currency = currency;
 	}
 
-	public Double getConvertionRatio() {
+	public BigDecimal getConvertionRatio() {
 		return convertionRatio;
 	}
 
-	public void setConvertionRatio(Double convertionRatio) {
+	public void setConvertionRatio(BigDecimal convertionRatio) {
 		this.convertionRatio = convertionRatio;
 	}
 
-	public Double getCurrencyBalance() {
+	public BigDecimal getCurrencyBalance() {
 		return currencyBalance;
 	}
 
-	public void setCurrencyBalance(Double currencyBalance) {
+	public void setCurrencyBalance(BigDecimal currencyBalance) {
 		this.currencyBalance = currencyBalance;
 	}
 
-	public Double getZarAmount() {
+	public BigDecimal getZarAmount() {
 		return zarAmount;
 	}
 
-	public void setZarAmount(Double zarAmount) {
+	public void setZarAmount(BigDecimal zarAmount) {
 		this.zarAmount = zarAmount;
 	}
 	

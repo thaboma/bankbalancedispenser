@@ -7,13 +7,5 @@ import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.e
 
 @Repository
 public interface CurrencyConversionRepository extends JpaRepository<CurrencyConversionRateEntity, String> {
-	public default  CurrencyConversionRateEntity findByRateByCurrencyCode(String currencyCode) {
-		 return  findByRateByCurrencyCode(currencyCode); 
-	}
-	
-	public default  CurrencyConversionRateEntity findZarRate() {
-		 return  findZarRate(); 
-	}
-	
-	
+	CurrencyConversionRateEntity findRateByCurrencyCode(String currencyCode);
 }

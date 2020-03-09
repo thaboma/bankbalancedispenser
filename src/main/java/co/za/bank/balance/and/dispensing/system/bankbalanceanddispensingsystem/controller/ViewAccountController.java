@@ -22,13 +22,13 @@ public class ViewAccountController {
     @Autowired
     private ViewAccountService viewAccountService;
 
-    @GetMapping("/get_transactional_account_balances")
-    public List<ClientTransBalResponceDto> getTransactionalAccountBalances(@PathVariable String id, @PathVariable Instant instant) throws NoAccountFoundException{       
+    @GetMapping("/get_transactional_account_balances/{id}/")
+    public List<ClientTransBalResponceDto> getTransactionalAccountBalances(@PathVariable String id,Instant instant) throws NoAccountFoundException{       
     	return viewAccountService.getTransactionalAccountBalances(id ,instant);    	
     }
     
-    @GetMapping("/get_currency_account_balances")
-    public List<ClientCurAccBalResponceDto> getCurrencyAccountBalances(@PathVariable String id, Instant instant) throws NoAccountFoundException{       
+    @GetMapping("/get_currency_account_balances/{id}")
+    public List<ClientCurAccBalResponceDto> getCurrencyAccountBalances(@PathVariable String id,Instant instant) throws NoAccountFoundException{       
     	return viewAccountService.getCurrencyAccountBalances(id,instant);    	
     }
 }

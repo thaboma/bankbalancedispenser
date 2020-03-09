@@ -28,7 +28,7 @@ public class AccountTypeEntity implements Serializable {
     private String description;
 
     @Column(name = "TRANSACTIONAL")
-    private byte transactional;
+    private boolean transactional;
 
 	public String getAccountTypeCode() {
 		return accountTypeCode;
@@ -46,11 +46,11 @@ public class AccountTypeEntity implements Serializable {
 		this.description = description;
 	}
 
-	public byte getTransactional() {
+	public boolean getTransactional() {
 		return transactional;
 	}
 
-	public void setTransactional(byte transactional) {
+	public void setTransactional(boolean transactional) {
 		this.transactional = transactional;
 	}
 

@@ -3,7 +3,7 @@ package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dao.AccountTypeRepository;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto.AccountTypeDto;
@@ -11,7 +11,7 @@ import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.e
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.services.AccountBalanceService;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.utils.Mapper;
 
-@Service
+@Component
 public class AccountBalanceServiceImpl implements AccountBalanceService {
 
     @Autowired

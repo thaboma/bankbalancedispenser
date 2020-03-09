@@ -1,5 +1,6 @@
 package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,7 +22,7 @@ public class AtmRequestDto extends Dto {
     private String accountNo;
 
 	@JsonProperty("requiredAmt")
-    private Double requiredAmt;
+    private BigDecimal requiredAmt;
 	
 	
 	@JsonProperty("instant")
@@ -48,12 +49,12 @@ public class AtmRequestDto extends Dto {
 	}
 
 
-	public Double getRequiredAmt() {
+	public BigDecimal getRequiredAmt() {
 		return requiredAmt;
 	}
 
 
-	public void setRequiredAmt(Double requiredAmt) {
+	public void setRequiredAmt(BigDecimal requiredAmt) {
 		this.requiredAmt = requiredAmt;
 	}
 

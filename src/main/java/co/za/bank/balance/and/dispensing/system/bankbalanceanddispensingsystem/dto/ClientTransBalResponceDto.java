@@ -1,5 +1,7 @@
 package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -22,7 +24,7 @@ public class ClientTransBalResponceDto extends Dto {
 	
 	
 	@JsonProperty("accBalance")
-    private Double accBalance;
+    private BigDecimal accBalance;
 	
 	@JsonProperty("errorMessage")
     private Double errorMessage;
@@ -48,12 +50,12 @@ public class ClientTransBalResponceDto extends Dto {
 	}
 
 
-	public Double getAccBalance() {
+	public BigDecimal getAccBalance() {
 		return accBalance;
 	}
 
 
-	public void setAccBalance(Double accBalance) {
+	public void setAccBalance(BigDecimal accBalance) {
 		this.accBalance = accBalance;
 	}
 

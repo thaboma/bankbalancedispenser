@@ -2,12 +2,12 @@ spring:
   h2:
     console:
       enabled: true
-  datasource:
-    url: jdbc:h2:mem:testdb
+  datasource: 
+    url: jdbc:h2:file:C:/data/sample/1;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO
     driver-class-name: org.h2.Driver
     username: sa
     password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate

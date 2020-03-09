@@ -1,6 +1,7 @@
 package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "CLIENT_ACCOUNT")
-@NamedQuery(name = "ClientAccountEntity.findByClientId", query = "SELECT a FROM ClientAccountEntity a WHERE a.clientId = :clientId")
+@NamedQuery(name = "ClientAccountEntity.findByClientId", query = "SELECT a FROM ClientAccountEntity a WHERE a.client.clientId = :clientId")
 
 @Getter
 @Setter
@@ -46,7 +47,7 @@ public class ClientAccountEntity implements Serializable {
 	
 
 	@Column(name = "DISPLAY_BALANCE")
-	private Double displayBalance;
+	private BigDecimal displayBalance;
 
 	public String getClientAccNo() {
 		return clientAccNo;
@@ -81,11 +82,11 @@ public class ClientAccountEntity implements Serializable {
 		this.currency = currency;
 	}
 
-	public Double getDisplayBalance() {
+	public BigDecimal getDisplayBalance() {
 		return displayBalance;
 	}
 
-	public void setDisplayBalance(Double displayBalance) {
+	public void setDisplayBalance(BigDecimal displayBalance) {
 		this.displayBalance = displayBalance;
 	}	
 	
