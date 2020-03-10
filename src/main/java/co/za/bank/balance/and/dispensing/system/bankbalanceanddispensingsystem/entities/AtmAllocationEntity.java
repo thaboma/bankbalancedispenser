@@ -2,9 +2,13 @@ package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -24,13 +28,13 @@ public class AtmAllocationEntity implements Serializable {
     @Column(name = "ATM_ALLOCATION_ID")
     private Integer  atmAllocationId;
 	
-//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "ATM_ID")
-//	private List<AtmEntity> atms = new ArrayList<>();
-//
-//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "DENOMINATION_ID")
-//	private List<DenominationEntity> denaminations = new ArrayList<>();
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "ATM_ID")
+	private AtmEntity atm;
+
+	@ManyToOne(cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+	@JoinColumn(name = "DENOMINATION_ID")
+	private DenominationEntity denomination;
 
     @Column(name = "COUNT")
     private int  count ;
@@ -42,30 +46,38 @@ public class AtmAllocationEntity implements Serializable {
 	public void setAtmAllocationId(Integer atmAllocationId) {
 		this.atmAllocationId = atmAllocationId;
 	}
-
-//	public List<AtmEntity> getAtms() {
-//		return atms;
-//	}
-//
-//	public void setAtms(List<AtmEntity> atms) {
-//		this.atms = atms;
-//	}
-//
-//	public List<DenominationEntity> getDenaminations() {
-//		return denaminations;
-//	}
-//
-//	public void setDenaminations(List<DenominationEntity> denaminations) {
-//		this.denaminations = denaminations;
-//	}
-
+	
 	public int getCount() {
 		return count;
 	}
 
+	public AtmEntity getAtm() {
+		return atm;
+	}
+
+	public void setAtm(AtmEntity atm) {
+		this.atm = atm;
+	}
+
+	public DenominationEntity getDenomination() {
+		return denomination;
+	}
+
+	public void setDenamination(DenominationEntity denamination) {
+		this.denomination = denamination;
+	}
+
 	public void setCount(int count) {
 		this.count = count;
-	} 
+	}
+
+	@Override
+	public String toString() {
+		return "AtmAllocationEntity [atmAllocationId=" + atmAllocationId + ", \r\natm=" + atm.toString() + ", \r\ndenomination="
+				+ denomination.toString() + "], \r\ncount=" + count + "]";
+	}
+
+ 
 
     
 

@@ -9,9 +9,7 @@ import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.e
 
 @Repository
 public interface ClientAccountRepository extends JpaRepository<ClientAccountEntity, String> {
-//	public default  List<ClientAccountEntity> findByClientId(String id) {
-//		 return  findByClientId(id); 
-//	}
+
 	List<ClientAccountEntity> findByClientId(Integer clientId);
 	  
 }

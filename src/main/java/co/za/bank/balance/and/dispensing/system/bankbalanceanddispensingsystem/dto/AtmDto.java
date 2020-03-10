@@ -23,5 +23,10 @@ public class AtmDto extends Dto {
 	@JsonProperty("location")
     private String location;
 
+	@Override
+	public String toString() {
+		return "AtmDto [atmId=" + atmId + ", name=" + name + ", location=" + location + "]";
+	}
+
 
 }

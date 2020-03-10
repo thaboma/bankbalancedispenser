@@ -55,5 +55,11 @@ public class DenominationEntity {
 		this.denominationType = denominationType;
 	}
 
+	@Override
+	public String toString() {
+		return "DenominationEntity [denominationId=" + denominationId + ", value=" + value + ", denominationType="
+				+ denominationType + "]";
+	}
+
     
 }

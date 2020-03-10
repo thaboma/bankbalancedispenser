@@ -14,6 +14,9 @@ public class AtmRequestDto extends Dto {
 	 * 
 	 */
 	private static final long serialVersionUID = -499636923540664087L;
+	
+	@JsonProperty("atmId")
+    private String atmId;
 
 	@JsonProperty("clientId")
     private String clientId;
@@ -66,8 +69,23 @@ public class AtmRequestDto extends Dto {
 
 	public void setInstant(Instant instant) {
 		this.instant = instant;
-	}	
+	}
 
-	
+
+	public String getAtmId() {
+		return atmId;
+	}
+
+
+	public void setAtmId(String atmId) {
+		this.atmId = atmId;
+	}
+
+
+	@Override
+	public String toString() {
+		return "AtmRequestDto [atmId=" + atmId + ", clientId=" + clientId + ", accountNo=" + accountNo
+				+ ", requiredAmt=" + requiredAmt + ", instant=" + instant + "]";
+	}	
 	
 }

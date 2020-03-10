@@ -21,4 +21,28 @@ public class DenominationTypeEntity {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+	@Override
+	public String toString() {
+		return "DenominationTypeEntity [denominationTypeCode=" + denominationTypeCode + ", description=" + description
+				+ "]";
+	}
+
+	public String getDenominationTypeCode() {
+		return denominationTypeCode;
+	}
+
+	public void setDenominationTypeCode(String denominationTypeCode) {
+		this.denominationTypeCode = denominationTypeCode;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}	
+    
+    
 }

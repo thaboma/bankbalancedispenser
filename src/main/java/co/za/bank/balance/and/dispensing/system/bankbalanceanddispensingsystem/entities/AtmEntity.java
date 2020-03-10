@@ -30,5 +30,10 @@ public class AtmEntity implements Serializable {
     @Column(name = "LOCATION")
     private String location;
 
+	@Override
+	public String toString() {
+		return "AtmEntity [atmId=" + atmId + ", name=" + name + ", location=" + location + "]";
+	}
+
 
 }

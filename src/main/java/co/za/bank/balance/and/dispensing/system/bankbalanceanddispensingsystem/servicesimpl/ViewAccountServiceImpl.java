@@ -91,8 +91,7 @@ public class ViewAccountServiceImpl implements ViewAccountService{
 		}
 
 		return clientCurAccBalResponceDtos;
-	}
-  	
+	} 	
 	
  
 	
