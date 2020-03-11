@@ -1,18 +1,20 @@
 package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.services;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto.AtmRequestDto;
+import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto.DenominationCounterDto;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.exceptions.AtmExceptionException;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.exceptions.InsufficientFundsException;
 
 @Service
 public interface CashWithdrawalService {
 	
-	Map<String, String> dispenseCash(AtmRequestDto atmRequestDton) throws InsufficientFundsException, AtmExceptionException;
+	List<DenominationCounterDto> dispenseCash(AtmRequestDto atmRequestDton) throws InsufficientFundsException, AtmExceptionException;
 	
 //     void getCash(AtmRequestDto atmRequestDto);
 //     

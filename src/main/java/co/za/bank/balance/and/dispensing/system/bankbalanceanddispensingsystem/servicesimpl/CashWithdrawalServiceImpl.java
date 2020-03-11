@@ -1,5 +1,6 @@
 package co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.servicesimpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dao.AtmAllocationRepository;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dao.ClientAccountRepository;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto.AtmRequestDto;
+import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.dto.DenominationCounterDto;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.entities.AtmAllocationEntity;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.entities.ClientAccountEntity;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.exceptions.AtmExceptionException;
@@ -34,53 +36,90 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService{
     
 	@Override
 	@Transactional
-	public Map<String, String> dispenseCash(AtmRequestDto atmRequestDto)
+	public List<DenominationCounterDto> dispenseCash(AtmRequestDto atmRequestDto)
 			throws InsufficientFundsException, AtmExceptionException {
 		System.out.println("atmRequestDto\r\n" + atmRequestDto);
 
 		List<ClientAccountEntity> clientAccountEntities = clientAccountRepository
 				.findByClientId(Integer.parseInt(atmRequestDto.getClientId()));
+		List<DenominationCounterDto> denominationCounts = new ArrayList<>();
+
 		/**
 		 * I was meant to transform the entities to Dtos ,didn't have enough time to
-		 * complete that
+		 *  complete that transform clientAccountEntities and denominationCounts
 		 */
 		Set<Integer> availableDenominations = getAvailableDenominations(atmRequestDto);
 		if (availableDenominations.isEmpty()) {
 			throw new AtmExceptionException("ATM not registered or unfunded");
 		}
-		Map<String, String> notesPerDenomination = new HashMap<>();
 
 		StringBuffer errorStr = new StringBuffer("Insufficient funds Amount not available, would you like to draw ");
 
-		clientAccountEntities.stream().forEach(acc -> {
-			if (acc.getClientAccNo().equals(atmRequestDto.getAccountNo())) {
-				if (acc.getDisplayBalance().doubleValue() >= atmRequestDto.getRequiredAmt().doubleValue()) {
-					if (atmRequestDto.getRequiredAmt().doubleValue() % 10 == 0) {
+		for(ClientAccountEntity acc:clientAccountEntities) {
+		//clientAccountEntities.stream().forEach(acc -> {
+			if (acc.getAccountType().getTransactional()) {
+				if (acc.getClientAccNo().equals(atmRequestDto.getAccountNo())) {
 
-						if (availableDenominations!= null) {	
+					if (acc.getAccountType().getAccountTypeCode().equalsIgnoreCase("CHQ")) {
 
-							if (!availableDenominations.isEmpty()) {
-								notesPerDenomination.putAll(getNotesPerDenomination(
-										atmRequestDto.getRequiredAmt().intValue(), availableDenominations));
-								acc.setDisplayBalance(acc.getDisplayBalance().subtract(atmRequestDto.getRequiredAmt()));
-								clientAccountRepository.saveAndFlush(acc);
-							}
+						double odLimit = acc.getDisplayBalance().doubleValue() + 10000D;
+						System.out.println(
+								"odLimit = " + odLimit + "[" + (odLimit >= atmRequestDto.getRequiredAmt().doubleValue())
+										+ "] " + atmRequestDto.getRequiredAmt().doubleValue());
+						if (odLimit >= atmRequestDto.getRequiredAmt().doubleValue()) {
+							denominationCounts.addAll(withDrawCash(acc, atmRequestDto, availableDenominations));
+						} else {
+							errorStr.append(acc.getDisplayBalance().doubleValue()
+									- (acc.getDisplayBalance().doubleValue() % 10) + "");
+						}
+
+					} else {
+						if (acc.getDisplayBalance().doubleValue() >= atmRequestDto.getRequiredAmt().doubleValue()) {
+							denominationCounts.addAll(withDrawCash(acc, atmRequestDto, availableDenominations));
+						} else {
+							errorStr.append(acc.getDisplayBalance().doubleValue()
+									- (acc.getDisplayBalance().doubleValue() % 10) + "");
 						}
 					}
 
-				} else {
-					errorStr.append(
-							acc.getDisplayBalance().doubleValue() - (acc.getDisplayBalance().doubleValue() % 10) + "");
 				}
-			}
-		});
-	
 
-		if (notesPerDenomination.isEmpty()) {
+			}
+		//});
+		}
+
+		if (denominationCounts.isEmpty()) {
 			throw new InsufficientFundsException(errorStr.toString());
 		}
 
-		return notesPerDenomination;
+		return denominationCounts;
+	}
+	
+	private List<DenominationCounterDto> withDrawCash(ClientAccountEntity acc, AtmRequestDto atmRequestDto,
+			Set<Integer> availableDenominations) throws AtmExceptionException {
+		List<DenominationCounterDto> denominationCounts = new ArrayList<>();
+		if (atmRequestDto.getRequiredAmt().doubleValue() % 10 == 0) {
+
+			if (availableDenominations != null) {
+
+				if (!availableDenominations.isEmpty()) {
+					getNotesPerDenomination(atmRequestDto.getRequiredAmt().intValue(), availableDenominations)
+							.forEach((d, c) -> {
+								DenominationCounterDto denominationCount = new DenominationCounterDto();
+								denominationCount.setDenomination(Integer.parseInt(d));
+								denominationCount.setCount(Integer.parseInt(c));
+								denominationCounts.add(denominationCount);
+							});
+					// );
+					acc.setDisplayBalance(acc.getDisplayBalance().subtract(atmRequestDto.getRequiredAmt()));
+					clientAccountRepository.saveAndFlush(acc);
+				}
+			}
+
+		}else {
+			throw new AtmExceptionException("Please check your required amonut and try again");
+		}
+		return denominationCounts;
 	}
 
 	@Override

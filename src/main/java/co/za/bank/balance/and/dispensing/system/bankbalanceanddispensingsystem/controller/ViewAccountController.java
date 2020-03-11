@@ -24,11 +24,27 @@ public class ViewAccountController {
 
     @GetMapping("/get_transactional_account_balances/{id}/")
     public List<ClientTransBalResponceDto> getTransactionalAccountBalances(@PathVariable String id,Instant instant) throws NoAccountFoundException{       
-    	return viewAccountService.getTransactionalAccountBalances(id ,instant);    	
-    }
+
+    	List<ClientTransBalResponceDto> clientTransBalResponceDtos;      	
+      	try {
+      		clientTransBalResponceDtos=viewAccountService.getTransactionalAccountBalances(id ,instant);  
+      	} catch (Exception e) {
+      		throw new NoAccountFoundException("Oops something went wrong please try again later");
+      	}
+      	  return clientTransBalResponceDtos;     
+        }
+ 
     
     @GetMapping("/get_currency_account_balances/{id}")
     public List<ClientCurAccBalResponceDto> getCurrencyAccountBalances(@PathVariable String id,Instant instant) throws NoAccountFoundException{       
-    	return viewAccountService.getCurrencyAccountBalances(id,instant);    	
-    }
+
+    	List<ClientCurAccBalResponceDto> clientCurAccBalResponceDtos;
+  	
+  	try {
+  		clientCurAccBalResponceDtos=viewAccountService.getCurrencyAccountBalances(id,instant); 
+  	} catch (Exception e) {
+  		throw new NoAccountFoundException("Oops something went wrong please try again later");
+  	}
+		return clientCurAccBalResponceDtos;
+	}
 }
