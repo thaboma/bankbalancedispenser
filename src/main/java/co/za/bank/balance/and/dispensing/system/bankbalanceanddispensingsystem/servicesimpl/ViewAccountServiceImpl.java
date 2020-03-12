@@ -19,25 +19,24 @@ import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.e
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.entities.CurrencyConversionRateEntity;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.exceptions.NoAccountFoundException;
 import co.za.bank.balance.and.dispensing.system.bankbalanceanddispensingsystem.services.ViewAccountService;
- 
-@Component
-public class ViewAccountServiceImpl implements ViewAccountService{
 
-	   static Logger log = Logger.getLogger(ViewAccountServiceImpl.class.getName());
-	
-    @Autowired
-    private ClientAccountRepository clientAccountRepository;
- 
-    @Autowired
-    private CurrencyConversionRepository currencyConversionRepository;
+@Component
+public class ViewAccountServiceImpl implements ViewAccountService {
+
+	static Logger log = Logger.getLogger(ViewAccountServiceImpl.class.getName());
+
+	@Autowired
+	private ClientAccountRepository clientAccountRepository;
+
+	@Autowired
+	private CurrencyConversionRepository currencyConversionRepository;
 
 	@Override
 	public List<ClientTransBalResponceDto> getTransactionalAccountBalances(String id, Instant instant)
 			throws NoAccountFoundException {
-		log.info("getTransactionalAccountBalances .. Client Id is  : " + id);
-		List<ClientAccountEntity> clientAccountEntities = clientAccountRepository.findByClientId(Integer.parseInt(id));
-		log.info("ClientAccountEntity size is  : " + clientAccountEntities.size());
 
+		List<ClientAccountEntity> clientAccountEntities = clientAccountRepository.findByClientId(Integer.parseInt(id));
+		
 		/**
 		 * I was meant to transform the entities to Dtos ,didn't have enough time to
 		 * complete that
@@ -54,6 +53,7 @@ public class ViewAccountServiceImpl implements ViewAccountService{
 			}
 		}
 
+		log.info("Client Id : " + id+" has  : " +clientTransBalResponceDtos+" transactional accounts and "+clientAccountEntities.size()+" accounts in total");
 		Comparator<ClientTransBalResponceDto> clientTransBalResponceDtoComparator = (ClientTransBalResponceDto c1,
 				ClientTransBalResponceDto c2) -> c2.getAccBalance().subtract(c1.getAccBalance()).intValue();
 		clientTransBalResponceDtos = clientTransBalResponceDtos.stream().sorted(clientTransBalResponceDtoComparator)
@@ -70,10 +70,9 @@ public class ViewAccountServiceImpl implements ViewAccountService{
 		 * time to transform clientAccountEntities and clientCurAccBalResponceDtos
 		 */
 
-		log.info("Client Id is  : " + id);
 		List<ClientAccountEntity> clientAccountEntities = clientAccountRepository.findByClientId(Integer.parseInt(id));
-		log.info("ClientAccountEntity size is  : " + clientAccountEntities.size());
-
+	
+		log.info("Client Id : " + id+" has  : " + clientAccountEntities.size()+" accounts in total");
 		List<ClientCurAccBalResponceDto> clientCurAccBalResponceDtos = new ArrayList<>();
 
 		for (ClientAccountEntity acc : clientAccountEntities) {
@@ -97,6 +96,8 @@ public class ViewAccountServiceImpl implements ViewAccountService{
 
 			throw new NoAccountFoundException("No accounts to display");
 		}
+		
+		log.info("Client Id : " + id+" has  : "+clientAccountEntities.size()+" accounts in total");
 
 		Comparator<ClientCurAccBalResponceDto> clientCurAccBalResponceDtoComparator = (ClientCurAccBalResponceDto c1,
 				ClientCurAccBalResponceDto c2) -> c2.getZarAmount().subtract(c1.getZarAmount()).intValue();
@@ -105,8 +106,5 @@ public class ViewAccountServiceImpl implements ViewAccountService{
 
 		return clientCurAccBalResponceDtos;
 	}
-	
- 
-	
 
 }

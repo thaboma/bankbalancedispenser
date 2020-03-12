@@ -33,6 +33,9 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService{
     private AtmAllocationRepository atmAllocationRepository;
     
     
+    private static final  String CHEQUE_ACCOUNT="CHQ";
+    
+    private static final  String NOTES="N";
     
 	@Override
 	@Transactional
@@ -60,7 +63,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService{
 			if (acc.getAccountType().getTransactional()) {
 				if (acc.getClientAccNo().equals(atmRequestDto.getAccountNo())) {
 
-					if (acc.getAccountType().getAccountTypeCode().equalsIgnoreCase("CHQ")) {
+					if (acc.getAccountType().getAccountTypeCode().equalsIgnoreCase(CHEQUE_ACCOUNT)) {
 
 						double odLimit = acc.getDisplayBalance().doubleValue() + 10000D;
 						System.out.println(
@@ -69,8 +72,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService{
 						if (odLimit >= atmRequestDto.getRequiredAmt().doubleValue()) {
 							denominationCounts.addAll(withDrawCash(acc, atmRequestDto, availableDenominations));
 						} else {
-							errorStr.append(acc.getDisplayBalance().doubleValue()
-									- (acc.getDisplayBalance().doubleValue() % 10) + "");
+							errorStr.append(odLimit + "");
 						}
 
 					} else {
@@ -133,7 +135,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService{
 
 		Set<Integer> denominationNotes = new HashSet<Integer>();
 		atmAllocations.forEach(a -> {
-			if (a.getDenomination().getDenominationType().getDenominationTypeCode().equals("N")) {
+			if (a.getDenomination().getDenominationType().getDenominationTypeCode().equals(NOTES)) {
 
 				@SuppressWarnings("resource")
 				Scanner intScanner = new Scanner(atmRequestDto.getRequiredAmt().toString());
