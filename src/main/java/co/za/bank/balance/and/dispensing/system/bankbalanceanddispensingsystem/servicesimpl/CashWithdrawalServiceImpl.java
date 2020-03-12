@@ -59,7 +59,6 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService{
 		StringBuffer errorStr = new StringBuffer("Insufficient funds Amount not available, would you like to draw ");
 
 		for(ClientAccountEntity acc:clientAccountEntities) {
-		//clientAccountEntities.stream().forEach(acc -> {
 			if (acc.getAccountType().getTransactional()) {
 				if (acc.getClientAccNo().equals(atmRequestDto.getAccountNo())) {
 
@@ -72,7 +71,7 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService{
 						if (odLimit >= atmRequestDto.getRequiredAmt().doubleValue()) {
 							denominationCounts.addAll(withDrawCash(acc, atmRequestDto, availableDenominations));
 						} else {
-							errorStr.append(odLimit + "");
+							errorStr.append(odLimit -(odLimit % 10));
 						}
 
 					} else {
@@ -87,7 +86,6 @@ public class CashWithdrawalServiceImpl implements CashWithdrawalService{
 				}
 
 			}
-		//});
 		}
 
 		if (denominationCounts.isEmpty()) {

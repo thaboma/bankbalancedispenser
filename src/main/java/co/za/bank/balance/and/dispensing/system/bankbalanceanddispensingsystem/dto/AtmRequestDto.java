@@ -9,12 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class AtmRequestDto extends Dto {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -499636923540664087L;
-	
+public class AtmRequestDto {
+    
 	@JsonProperty("atmId")
     private String atmId;
 
