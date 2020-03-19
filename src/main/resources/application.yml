@@ -3,7 +3,7 @@ spring:
     console:
       enabled: true
   datasource: 
-    url: jdbc:h2:file:C:/data/sample/14;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO
+    url: jdbc:h2:file:C:/data/sample/1;DB_CLOSE_ON_EXIT=TRUE;FILE_LOCK=NO
     driver-class-name: org.h2.Driver
     username: sa
     password:
